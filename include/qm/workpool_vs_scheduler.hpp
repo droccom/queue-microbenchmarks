@@ -9,6 +9,17 @@
 #include "qm/qm_thread.hpp"
 #include "queue_wrapper.h"
 
+/*
+ * This benchmark compares two variants of a work-execution scenario with
+ * M executors:
+ * - in the 'workpool' variant, all the M executors share a single MPMC queue
+ * - in the 'scheduler' variant, an additional thread (i.e., the scheduler)
+ * dispatches data among 2*M SPSC queues, one for each executor-scheduler and
+ * scheduler-executor pair.
+ *
+ * The data movement is performed by push/pop bursts of random length.
+ */
+
 template<typename queue_t>
 struct pc_thread: public qm_thread<queue_t> {
 	pc_thread(unsigned int seed) :

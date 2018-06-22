@@ -10,6 +10,14 @@
 #include "qm/experiment.hpp"
 #include "qm/queues.hpp"
 
+/*
+ * This benchmark is a simple 2-stage torus:
+ * - the fw thread streams data to the bw thread, through a SPSC queue;
+ * - the bw thread forwards the incoming data back to fw, through another SPSC.
+ *
+ * The data movement is performed by push/pop bursts of random length.
+ */
+
 template<typename queue_t>
 struct fw_thread: public qm_thread<queue_t> {
 	fw_thread(unsigned int seed) :
