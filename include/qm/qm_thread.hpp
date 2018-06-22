@@ -6,7 +6,7 @@
 #include <thread>
 
 #include "config.h"
-#include "qm/queue_wrappers.hpp"
+#include "queues.hpp"
 
 template<typename queue_t>
 void proxy_routine(void *th);

@@ -3,11 +3,6 @@
 
 #include <cstdint>
 
-#include "qm/queue_wrappers.hpp"
-
-typedef ff_bounded_spsc spsc_t;
-typedef gmt_bounded_mpmc mpmc_t;
-
 constexpr unsigned qm_in_len = (1 << 20);
 constexpr unsigned qm_np = 8;
 

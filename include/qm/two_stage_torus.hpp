@@ -6,9 +6,9 @@
 #include <cassert>
 
 #include "qm/config.h"
-#include "qm/queue_wrappers.hpp"
 #include "qm/qm_thread.hpp"
 #include "qm/experiment.hpp"
+#include "qm/queues.hpp"
 
 template<typename queue_t>
 struct fw_thread: public qm_thread<queue_t> {
@@ -88,7 +88,7 @@ void two_stage_torus() {
 	experiment<100>(kernel_<ff_unbounded_spsc>);
 
 	printf("> GMT bounded MPMC\n");
-	experiment<100>(kernel_<mpmc_t>);
+	experiment<100>(kernel_<gmt_bounded_mpmc>);
 }
 
 #endif /* INCLUDE_QM_TWO_STAGE_TORUS_HPP_ */

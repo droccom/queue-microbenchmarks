@@ -7,7 +7,7 @@
 
 #include "qm/config.h"
 #include "qm/qm_thread.hpp"
-#include "qm/queue_wrappers.hpp"
+#include "queue_wrapper.h"
 
 template<typename queue_t>
 struct pc_thread: public qm_thread<queue_t> {

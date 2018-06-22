@@ -1,24 +1,7 @@
-/*
- * queue_wrappers.hpp
- *
- *  Created on: Jun 21, 2018
- *      Author: droc565
- */
+#ifndef INCLUDE_QM_QUEUE_WRAPPERS_FF_HPP_
+#define INCLUDE_QM_QUEUE_WRAPPERS_FF_HPP_
 
-#ifndef INCLUDE_QM_QUEUE_WRAPPERS_HPP_
-#define INCLUDE_QM_QUEUE_WRAPPERS_HPP_
-
-template<typename T>
-inline void queue_init(T *&, unsigned);
-
-template<typename T>
-inline void queue_destroy(T *);
-
-template<typename T>
-inline void queue_push(T *, void *);
-
-template<typename T>
-inline void* queue_pop(T *);
+#include "qm/queue_wrapper.h"
 
 /*
  * FF - SPSC bounded
@@ -83,38 +66,4 @@ inline void *queue_pop(ff::uSWSR_Ptr_Buffer *q) {
 	return res;
 }
 
-/*
- * GMT - MPMC bounded
- */
-#include "gmt/queue.h"
-
-typedef qmpmc_t gmt_bounded_mpmc;
-
-template<>
-inline void queue_init(gmt_bounded_mpmc *&q, unsigned len) {
-	q = (qmpmc_t *)malloc(sizeof(qmpmc_t));
-	qmpmc_init(q, (uint32_t)len);
-}
-
-template<>
-inline void queue_destroy(gmt_bounded_mpmc *q) {
-	qmpmc_destroy(q);
-	free(q);
-}
-
-template<>
-inline void queue_push(gmt_bounded_mpmc *q, void *x) {
-	qmpmc_push(q, x);
-}
-
-template<>
-inline void *queue_pop(gmt_bounded_mpmc *q) {
-	void *res;
-	if(!qmpmc_pop(q, &res))
-		return nullptr;
-	return res;
-}
-
-
-
-#endif /* INCLUDE_QM_QUEUE_WRAPPERS_HPP_ */
+#endif /* INCLUDE_QM_QUEUE_WRAPPERS_FF_HPP_ */
